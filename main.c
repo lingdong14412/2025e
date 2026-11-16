@@ -29,6 +29,7 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+<<<<<<< HEAD
 
 #include "bsp/bsp_i2c.h"
 #include "bsp/bsp_uart.h"
@@ -61,3 +62,26 @@ int main(void) {
     delay_cycles(3);
   }
 }
+=======
+#include "bsp/bsp_i2c.h"
+#include "bsp/bsp_uart.h"
+#include "ti_msp_dl_config.h"
+
+uint8_t ch;
+
+int main(void) {
+  SYSCFG_DL_init();
+  i2c_init();
+  /* Set LED to indicate start of transfer */
+  DL_GPIO_togglePins(GPIO0_PORT, GPIO0_LED_PIN);
+  
+  i2c_read_reg(0x68,0x75,&ch);
+  while (1) {
+  
+  }
+  
+
+  
+}
+
+>>>>>>> 75b89cf (修改bsp_i2c.c/.h)

@@ -29,24 +29,32 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "Sensors/mpu6500/mpu.h"
 #include "bsp/bsp_i2c.h"
 #include "bsp/bsp_uart.h"
 #include "ti_msp_dl_config.h"
+#include <stdio.h>
 
 uint8_t ch;
-
+uint16_t accel_x;
+uint8_t accel_xh, accel_xl;
+uint8_t buf[4] = "ab\r\n";
 int main(void) {
   SYSCFG_DL_init();
-  i2c_init();
+
   /* Set LED to indicate start of transfer */
   DL_GPIO_togglePins(GPIO0_PORT, GPIO0_LED_PIN);
-  
-  i2c_read_reg(0x68,0x75,&ch);
+  i2c_read(0x68, 0x75, &ch, 1);
+
   while (1) {
-  
+    i2c_read(0x68, ACCEL_XOUT_H, &accel_xh, 1);
+    i2c_read(0x68, ACCEL_XOUT_L, &accel_xl, 1);
+    accel_x = (uint16_t)(accel_xh << 8 | accel_xl);
+
+    uart_send(&accel_xh, 1);
+    uart_send(&accel_xl, 1);
+    // uart_send(&accel_x, 1);
+
+    delay_cycles(1600000);
   }
-  
-
-  
 }
-

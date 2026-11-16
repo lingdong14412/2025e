@@ -29,40 +29,6 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-<<<<<<< HEAD
-
-#include "bsp/bsp_i2c.h"
-#include "bsp/bsp_uart.h"
-#include "ti_msp_dl_config.h"
-#include <stdio.h>
-#include <string.h>
-
-uint8_t ch;
-uint8_t buf[6];
-uint8_t send[4] = {'A', 'B', '\r', '\n'};
-uint8_t recv[4];
-int main(void) {
-  SYSCFG_DL_init();
-  DL_GPIO_setPins(GPIO_GRP_0_PORT, GPIO_GRP_0_AD0_PIN);
-
-  //  i2c_read_reg(i2c_INST,&ch, 0x68, 0x75);
-  // if(!i2c_read_multi_byte(i2c_INST, 0x68, 0x3B, 6, buf)){
-  //   DL_GPIO_setPins(GPIO_GRP_0_PORT,GPIO_GRP_0_LED_PIN);
-
-  // }
-
-  while (1) {
-    uart_recv(recv,4);
-    // delay_cycles(3);
-
-    uart_send(recv, 4);
-    // delay_cycles(3);
-
-    // memset(recv, 0, 1);
-    delay_cycles(3);
-  }
-}
-=======
 #include "bsp/bsp_i2c.h"
 #include "bsp/bsp_uart.h"
 #include "ti_msp_dl_config.h"
@@ -84,4 +50,3 @@ int main(void) {
   
 }
 
->>>>>>> 75b89cf (修改bsp_i2c.c/.h)

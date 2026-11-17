@@ -45,16 +45,17 @@ int main(void) {
   /* Set LED to indicate start of transfer */
   DL_GPIO_togglePins(GPIO0_PORT, GPIO0_LED_PIN);
   i2c_read(0x68, 0x75, &ch, 1);
-
   while (1) {
     i2c_read(0x68, ACCEL_XOUT_H, &accel_xh, 1);
     i2c_read(0x68, ACCEL_XOUT_L, &accel_xl, 1);
     accel_x = (uint16_t)(accel_xh << 8 | accel_xl);
 
-    uart_send(&accel_xh, 1);
-    uart_send(&accel_xl, 1);
-    // uart_send(&accel_x, 1);
 
-    delay_cycles(1600000);
+    uart_printf("%d\r\n",accel_xh);
+    uart_printf("%d\r\n",accel_x);
+    uart_printf("%d\r\n",accel_x);
+
+  uart_printf("\r\n");
+    delay_cycles(3200000);
   }
 }
